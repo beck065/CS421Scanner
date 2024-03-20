@@ -12,39 +12,134 @@ using namespace std;
 // --------- Two DFAs ---------------------------------
 
 // WORD DFA 
-// Done by: **
-// RE:   **
+// Done by: Adam Beck
+// RE:   (vowel | vowel n | consonant vowel | consonant vowel n | consonant-pair vowel | consonant-pair vowel n)^+
 bool word (string s)
 {
 
   int state = 0;
   int charpos = 0;
-  /* replace the following todo the word dfa  **
+  enum States { q0, q1, qsa, qy, qt, qs, qc, q0q1, q0qy}; // enums for easier state transitions
+  
   while (s[charpos] != '\0') 
     {
-      if (state == 0 && s[charpos] == 'a')
-      state = 1;
+      // states for q0
+      if (state == q0 && s[charpos] == 'V')
+      state = q0;
       else
-      if (state == 1 && s[charpos] == 'b')
-      state = 2;
+      if (state == q0 && s[charpos] == 'd' || s[charpos] == 'w' || s[charpos] == 'z' || s[charpos] == 'y' || s[charpos] == 'j')
+      state = qsa;
       else
-      if (state == 2 && s[charpos] == 'b')
-      state = 2;
+      if (state == q0 && s[charpos] == 's')
+      state = qs;
       else
-	  return(false);
+      if (state == q0 && s[charpos] == 't')
+      state = qt;
+      else
+      if (state == q0 && s[charpos] == 'b' || s[charpos] == 'g' || s[charpos] == 'h' || s[charpos] == 'k' || s[charpos] == 'm' || s[charpos] == 'n' || s[charpos] == 'p' || s[charpos] == 'r')
+      state = qy;
+      else
+      if (state == q0 && s[charpos] == 'c')
+      state = qc;
+      else
+      // states for q1
+      if (state == q1 && s[charpos] == 'n')
+      state = q0;
+      else
+      // states for qsa
+      if (state == qsa && s[charpos] == 'V')
+      state = q0q1;
+      else
+      // states for qy
+      if (state == qy && s[charpos] == 'V')
+      state = q0;
+      else
+      if (state == qy && s[charpos] == 'y')
+      state = qsa;
+      else
+      // states for qt
+      if (state == qt && s[charpos] == 'V')
+      state = q0q1;
+      else
+      if (state == qt && s[charpos] == 's')
+      state = qsa;
+      else
+      // states for qs
+      if (state == qs && s[charpos] == 'V')
+      state = q0q1;
+      else
+      if (state == qs && s[charpos] == 'h')
+      state = qsa;
+      else
+      // states for qc
+      if (state == qc && s[charpos] == 'h')
+      state = qsa;
+      else
+      // states for q0q1
+      if (state == q0q1 && s[charpos] == 'V')
+      state = q0q1;
+      else
+      if (state == q0q1 && s[charpos] == 'd' || s[charpos] == 'w' || s[charpos] == 'z' || s[charpos] == 'y' || s[charpos] == 'j')
+      state = qsa;
+      else
+      if (state == q0q1 && s[charpos] == 's')
+      state = qs;
+      else
+      if (state == q0q1 && s[charpos] == 't')
+      state = qt;
+      else
+      if (state == q0q1 && s[charpos] == 'b' || s[charpos] == 'g' || s[charpos] == 'h' || s[charpos] == 'k' || s[charpos] == 'm' || s[charpos] == 'p' || s[charpos] == 'r')
+      state = qy;
+      else
+      if (state == q0q1 && s[charpos] == 'c')
+      state = qc;
+      else
+      if (state == q0q1 && s[charpos] == 'n')
+      state = q0qy;
+      else
+      // states for q0qy
+      if (state == q0qy && s[charpos] == 'V')
+      state = q0q1;
+      else
+      if (state == q0qy && s[charpos] == ' ')
+      state = qsa;
+      else
+      if (state == q0qy && s[charpos] == 's')
+      state = qs;
+      else
+      if (state == q0qy && s[charpos] == 't')
+      state = qt;
+      else
+      if (state == q0qy && s[charpos] == 'b' || s[charpos] == 'g' || s[charpos] == 'h' || s[charpos] == 'k' || s[charpos] == 'm' || s[charpos] == 'n' || s[charpos] == 'p' || s[charpos] == 'r')
+      state = qy;
+      else
+      if (state == q0qy && s[charpos] == 'c')
+      state = qc;
+      else
+      if (state == q0qy && s[charpos] == 'y')
+      state = qsa;
+      else
+	    return(false);
       charpos++;
     }//end of while
 
   // where did I end up????
-  if (state == 2) return(true);  // end in a final state
+  if (state == q0 || state == q0q1 || state == q0qy) return(true);  // end in a final states
    else return(false);
-  */
+
 }
 
 // PERIOD DFA 
-// Done by: **
+// Done by: Adam Beck
 bool period (string s)
-{  // complete this **
+{ 
+  int state = 0;
+  int charpos = 0;
+
+  if (state == 0 && s[charpos] == '.')
+  return(true);
+  else
+  return(false);
 }
 
 // ------ Three  Tables -------------------------------------
